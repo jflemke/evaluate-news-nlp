@@ -3,7 +3,11 @@ function handleSubmit(event) {
 
     // check what text was put into the form field
     let formText = document.getElementById('url-input').value;
-    Client.checkForName(formText);
+    if (!Client.isValidURL(formText)) {
+        document.getElementById('results').innerHTML = `${formText} is not a valid URL.`;
+        alert('This is not a valid URL.\nPlease retry with another.');
+        return;
+    }
 
     console.log("::: Form Submitted :::");
     fetch('http://localhost:8080/text/sentiment', {
